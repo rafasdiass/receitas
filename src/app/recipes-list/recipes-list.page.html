@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Livro de receitas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let recipe of recipes" (click)="openDetails(recipe.idMeal)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="recipe.strMealThumb"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{ recipe.strMeal }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="createRecipe()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

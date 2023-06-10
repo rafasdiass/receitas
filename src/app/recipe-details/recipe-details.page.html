@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recipe Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="recipe">
+    <img [src]="recipe.strMealThumb">
+    <ion-card-content>
+      <ion-card-title>
+        {{ recipe.strMeal }}
+      </ion-card-title>
+      <p>{{ recipe.strInstructions }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
