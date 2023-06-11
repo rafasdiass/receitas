@@ -7,25 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class RecipeService {
 
-  private apiUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772';  // Substitua por sua URL de API real
+  private apiUrl = 'http://localhost:3333';
 
   constructor(private http: HttpClient) { }
 
   getRecipes(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(`${this.apiUrl}/recipes`);
   }
 
   getRecipeDetails(id: string): Observable<any> {
-    return this.http.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    return this.http.get(`${this.apiUrl}/recipes/${id}`);
   }
 
   createRecipe(recipeData: any): Observable<any> {
-    // Substitua a URL pela URL da sua API para criar receitas
-    return this.http.post('https://yourapi.com/create-recipe', recipeData);
+    return this.http.post(`${this.apiUrl}/recipes`, recipeData);
   }
 
   updateRecipe(id: string, recipeData: any): Observable<any> {
-    // Substitua a URL pela URL da sua API para atualizar receitas
-    return this.http.put(`https://yourapi.com/update-recipe/${id}`, recipeData);
+    return this.http.put(`${this.apiUrl}/recipes/${id}`, recipeData);
   }
 }
