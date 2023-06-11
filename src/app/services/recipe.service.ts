@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,12 @@ export class RecipeService {
   constructor(private http: HttpClient) { }
 
   getRecipes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/recipes`);
+    return this.http.get(`${this.apiUrl}/recipes`).pipe(
+      catchError(error => {
+        console.error('An error occurred:', error);
+        return throwError(error);
+      })
+    );
   }
 
   getRecipeDetails(id: string): Observable<any> {
