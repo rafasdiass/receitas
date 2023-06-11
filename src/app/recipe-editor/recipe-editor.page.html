@@ -1,16 +1,26 @@
-<!-- recipe-editor.page.html -->
-<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-  <ion-item>
-    <ion-label>Title</ion-label>
-    <ion-input formControlName="title"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Ingredients</ion-label>
-    <ion-input formControlName="ingredients"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Instructions</ion-label>
-    <ion-input formControlName="instructions"></ion-input>
-  </ion-item>
-  <ion-button expand="full" type="submit" [disabled]="!recipeForm.valid">Submit</ion-button>
-</form>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/recipes-list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Receita</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label>Titulo</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Ingredientes</ion-label>
+      <ion-input formControlName="ingredients"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Instruções</ion-label>
+      <ion-input formControlName="instructions"></ion-input>
+    </ion-item>
+    <ion-button expand="full" type="submit" [disabled]="!recipeForm.valid">Criar</ion-button>
+  </form>
+</ion-content>

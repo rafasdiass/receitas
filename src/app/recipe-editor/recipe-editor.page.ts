@@ -43,7 +43,7 @@ export class RecipeEditorPage implements OnInit {
         const recipe = response.meals[0];
         this.recipeForm.setValue({
           title: recipe.strMeal,
-          ingredients: recipe.strIngredient1, // Você deve adaptar isso para se adequar à estrutura de dados da sua API
+          ingredients: recipe.strIngredient1,
           instructions: recipe.strInstructions
         });
       },
@@ -75,5 +75,9 @@ export class RecipeEditorPage implements OnInit {
         }
       );
     }
+  }
+
+  goBack() {
+    this.router.navigateByUrl('/recipes-list');
   }
 }
