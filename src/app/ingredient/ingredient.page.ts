@@ -24,12 +24,9 @@ export class IngredientPage implements OnInit {
   }
   initForm() {
     this.ingredientForm = new FormGroup({
-      productId1: new FormControl(null, Validators.required),
-      ingredientUnity1: new FormControl(null, Validators.required),
-      ingredientWeight1: new FormControl(null, Validators.required),
-      productId2: new FormControl(null, Validators.required),
-      ingredientUnity2: new FormControl(null, Validators.required),
-      ingredientWeight2: new FormControl(null, Validators.required),
+      productId: new FormControl(null, Validators.required),
+      unity: new FormControl(null, Validators.required),
+      weight: new FormControl(null, Validators.required),
     });
   }
 
@@ -42,9 +39,7 @@ export class IngredientPage implements OnInit {
         console.error(error);
       }
     );
-  }
-
-  onSubmit() {
+  }onSubmit() {
     if (this.ingredientForm.invalid) {
       console.log('Formulário inválido');
       return;
@@ -52,11 +47,16 @@ export class IngredientPage implements OnInit {
 
     const formValue = this.ingredientForm.value;
 
+    // Gerar um nome de ingrediente único com base na hora atual
+    const uniqueIngredientName = 'Ingrediente' + new Date().getTime();
+
     this.ingredientService.createIngredient({
-      name: formValue.ingredientName,
-      unity: formValue.ingredientUnity,
-      weight: formValue.ingredientWeight,
-      productId: formValue.productId
+      name: uniqueIngredientName,
+      ingredient1: {
+        productId: formValue.productId,
+        unity: formValue.unity, // alterado para formValue.unity
+        weight: formValue.weight, // alterado para formValue.weight
+      }
     }).subscribe(
       (response: any) => {
         console.log(response);

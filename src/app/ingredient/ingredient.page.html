@@ -10,7 +10,7 @@
 
       <ion-item>
         <ion-label>Ingrediente 1:</ion-label>
-        <ion-select formControlName="productId1">
+        <ion-select formControlName="productId">
           <ion-select-option *ngFor="let product of products" [value]="product.id">
             {{ product.name }}
           </ion-select-option>
@@ -19,34 +19,16 @@
 
       <ion-item>
         <ion-label>UNIDADE:</ion-label>
-        <ion-input type="number" formControlName="ingredientUnity1"></ion-input>
-      </ion-item>
+        <ion-input type="number" formControlName="unity"></ion-input> <!-- alterado para unity -->
+    </ion-item>
 
-      <ion-item>
+    <ion-item>
         <ion-label>PESO:</ion-label>
-        <ion-input type="number" formControlName="ingredientWeight1"></ion-input>
-      </ion-item>
+        <ion-input type="number" formControlName="weight"></ion-input> <!-- alterado para weight -->
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Ingrediente 2:</ion-label>
-        <ion-select formControlName="productId2">
-          <ion-select-option *ngFor="let product of products" [value]="product.id">
-            {{ product.name }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
+      <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid">Criar Produto</ion-button>
 
-      <ion-item>
-        <ion-label>UNIDADE:</ion-label>
-        <ion-input type="number" formControlName="ingredientUnity2"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>PESO:</ion-label>
-        <ion-input type="number" formControlName="ingredientWeight2"></ion-input>
-      </ion-item>
-
-      <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid || ingredientForm.touched">Criar Produto</ion-button>
     </form>
   </div>
 </ion-content>
