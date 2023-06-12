@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class RecipeService {
 
   getRecipes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/recipe`).pipe(
+      tap((response: any) => console.log(response)),
       catchError(error => {
         console.error('An error occurred:', error);
         return throwError(error);

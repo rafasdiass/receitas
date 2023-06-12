@@ -18,7 +18,11 @@
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button [routerLink]="['/recipe-editor']">
+    <ion-fab-button (click)="createRecipe()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <ion-button (click)="testFunction()" #testButton>Testar Componente</ion-button>
+
+</ion-content>

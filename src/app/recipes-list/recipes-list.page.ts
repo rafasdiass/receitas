@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
+import { IonButton } from '@ionic/angular';
 
 @Component({
   selector: 'app-recipes-list',
@@ -8,6 +9,7 @@ import { RecipeService } from '../services/recipe.service';
   styleUrls: ['./recipes-list.page.scss'],
 })
 export class RecipesListPage implements OnInit {
+  @ViewChild('testButton', { static: false }) testButton!: IonButton; // Adicione o modificador !
 
   recipes: any[] = [];
 
@@ -24,7 +26,7 @@ export class RecipesListPage implements OnInit {
     this.recipeService.getRecipes().subscribe(
       (response) => {
         console.log(response);
-        this.recipes = response.meals; // Agora usamos response.meals para acomodar a estrutura de dados retornada pela API
+        this.recipes = response.meals;
       },
       (error) => {
         console.error(error);
@@ -39,5 +41,15 @@ export class RecipesListPage implements OnInit {
   createRecipe() {
     console.log("create recipe sendo chamado");
     this.router.navigate(['/recipe-editor', '']);
+  }
+
+  testFunction() {
+    console.log("Testar Componente clicado!");
+
+    if (this.testButton) {
+      console.log("Botão de teste encontrado!");
+    } else {
+      console.log("Botão de teste não encontrado!");
+    }
   }
 }

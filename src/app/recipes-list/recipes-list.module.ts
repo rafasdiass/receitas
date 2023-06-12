@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { RecipesListPageRoutingModule } from './recipes-list-routing.module';
 
 import { RecipesListPage } from './recipes-list.page';
+import { RecipeService } from '../services/recipe.service'; // Importe o RecipeService
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RecipesListPage } from './recipes-list.page';
     IonicModule,
     RecipesListPageRoutingModule
   ],
-  declarations: [RecipesListPage]
+  declarations: [RecipesListPage],
+  providers: [RecipeService] // Adicione o RecipeService aos provedores
 })
 export class RecipesListPageModule {}
