@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Product</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="productForm" class="container">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input formControlName="productName"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Description</ion-label>
+        <ion-input formControlName="productDescription"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" [disabled]="productForm.invalid">Create Product</ion-button>
+    </form>
+  </div>
+</ion-content>

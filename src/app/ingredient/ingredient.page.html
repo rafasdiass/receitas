@@ -1,0 +1,20 @@
+<div *ngIf="ingredientForm" class="container">
+  <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label>Ingredient Name</ion-label>
+      <ion-input formControlName="ingredientName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ingredient Unity</ion-label>
+      <ion-input formControlName="ingredientUnity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ingredient Weight</ion-label>
+      <ion-input formControlName="ingredientWeight"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid">Submit</ion-button>
+  </form>
+</div>
