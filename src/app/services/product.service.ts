@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class ProductService {
   private apiUrl = 'http://localhost:3333';
+  private createdProductId: string | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -15,6 +16,20 @@ export class ProductService {
     return this.http.post(`${this.apiUrl}/produto`, productData).pipe(
       catchError(this.handleError)
     );
+  }
+
+  getProducts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/produto`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getCreatedProductId(): string | null {
+    return this.createdProductId;
+  }
+
+  setCreatedProductId(productId: string) {
+    this.createdProductId = productId;
   }
 
   private handleError(error: any) {

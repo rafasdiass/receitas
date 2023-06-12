@@ -1,20 +1,52 @@
-<div *ngIf="ingredientForm" class="container">
-  <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
-    <ion-item>
-      <ion-label>Ingredient Name</ion-label>
-      <ion-input formControlName="ingredientName"></ion-input>
-    </ion-item>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Produtos</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-item>
-      <ion-label>Ingredient Unity</ion-label>
-      <ion-input formControlName="ingredientUnity"></ion-input>
-    </ion-item>
+<ion-content>
+  <div *ngIf="ingredientForm" class="container">
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
 
-    <ion-item>
-      <ion-label>Ingredient Weight</ion-label>
-      <ion-input formControlName="ingredientWeight"></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>Ingrediente 1:</ion-label>
+        <ion-select formControlName="productId1">
+          <ion-select-option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid">Submit</ion-button>
-  </form>
-</div>
+      <ion-item>
+        <ion-label>UNIDADE:</ion-label>
+        <ion-input type="number" formControlName="ingredientUnity1"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>PESO:</ion-label>
+        <ion-input type="number" formControlName="ingredientWeight1"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Ingrediente 2:</ion-label>
+        <ion-select formControlName="productId2">
+          <ion-select-option *ngFor="let product of products" [value]="product.id">
+            {{ product.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>UNIDADE:</ion-label>
+        <ion-input type="number" formControlName="ingredientUnity2"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>PESO:</ion-label>
+        <ion-input type="number" formControlName="ingredientWeight2"></ion-input>
+      </ion-item>
+
+      <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid || ingredientForm.touched">Criar Produto</ion-button>
+    </form>
+  </div>
+</ion-content>
