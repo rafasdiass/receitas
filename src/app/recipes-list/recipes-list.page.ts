@@ -37,6 +37,7 @@ export class RecipesListPage implements OnInit {
   }
 
   createRecipe() {
-    this.router.navigateByUrl('/recipe-editor');
+    console.log("create recipe sendo chamado");
+    this.router.navigate(['/recipe-editor', '']);
   }
 }

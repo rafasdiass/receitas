@@ -54,6 +54,11 @@ export class RecipeEditorPage implements OnInit {
   }
 
   onSubmit() {
+    if (this.recipeForm.invalid) {
+      console.log('Formulário inválido');
+      return;
+    }
+
     if (this.editMode) {
       this.recipeService.updateRecipe(this.recipeId as string, this.recipeForm.value).subscribe(
         (response) => {

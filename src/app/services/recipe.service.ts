@@ -13,7 +13,7 @@ export class RecipeService {
   constructor(private http: HttpClient) { }
 
   getRecipes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/recipes`).pipe(
+    return this.http.get(`${this.apiUrl}/recipe`).pipe(
       catchError(error => {
         console.error('An error occurred:', error);
         return throwError(error);
@@ -22,14 +22,14 @@ export class RecipeService {
   }
 
   getRecipeDetails(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/recipes/${id}`);
+    return this.http.get(`${this.apiUrl}/recipe/${id}`);
   }
 
   createRecipe(recipeData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/recipes`, recipeData);
+    return this.http.post(`${this.apiUrl}/recipe`, recipeData);
   }
 
   updateRecipe(id: string, recipeData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/recipes/${id}`, recipeData);
+    return this.http.put(`${this.apiUrl}/recipe/${id}`, recipeData);
   }
 }
