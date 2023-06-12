@@ -1,23 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>User Profile</ion-title>
+    <ion-title>Criar Autor</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-label>Name</ion-label>
-      <ion-input [(ngModel)]="user.name" placeholder="Your Name"></ion-input>
+      <ion-label>Nome</ion-label>
+      <ion-input [(ngModel)]="user.name" placeholder="Escreva seu nome"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Email</ion-label>
-      <ion-input [(ngModel)]="user.email" placeholder="Your Email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Phone</ion-label>
-      <ion-input [(ngModel)]="user.phone" placeholder="Your Phone"></ion-input>
+      <ion-label>Whatsapp</ion-label>
+      <ion-input [(ngModel)]="user.whatsapp" placeholder="Escreva seu Whatsapp"></ion-input>
     </ion-item>
   </ion-list>
-  <ion-button expand="full" (click)="saveProfile()">Save Profile</ion-button>
+  <ion-button expand="full" (click)="saveProfile()">Salvar perfil</ion-button>
 </ion-content>

@@ -43,13 +43,13 @@ export class RecipesListPage implements OnInit {
     this.router.navigate(['/recipe-editor', '']);
   }
 
-  testFunction() {
-    console.log("Testar Componente clicado!");
+  // testFunction() {
+  //   console.log("Testar Componente clicado!");
 
-    if (this.testButton) {
-      console.log("Botão de teste encontrado!");
-    } else {
-      console.log("Botão de teste não encontrado!");
-    }
-  }
+  //   if (this.testButton) {
+  //     console.log("Botão de teste encontrado!");
+  //   } else {
+  //     console.log("Botão de teste não encontrado!");
+  //   }
+  // }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -6,22 +7,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-profile.page.scss'],
 })
 export class UserProfilePage implements OnInit {
+
   user = {
     name: '',
-    email: '',
-    phone: ''
-  }
+    whatsapp: ''
+  };
 
-  constructor() { }
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    // Carregar dados do usuário aqui
-    // Normalmente, você fará uma chamada de API ou buscará em um serviço
   }
 
   saveProfile() {
-    // Salve os detalhes do perfil aqui
-    // Normalmente, você fará uma chamada de API ou salvará em um serviço
-    console.log(this.user);
+    this.recipeService.createAuthor({
+      name: this.user.name,
+      whatsapp: this.user.whatsapp,
+    }).subscribe(
+      (response) => {
+        console.log(response);
+        alert('Profile saved successfully');
+      },
+      (error) => {
+        console.error(error);
+        alert('An error occurred while saving the profile');
+      }
+    );
   }
 }

@@ -31,9 +31,20 @@ export class RecipeEditorPage implements OnInit {
 
   initForm() {
     this.recipeForm = new FormGroup({
-      title: new FormControl(null, Validators.required),
-      ingredients: new FormControl(null, Validators.required),
-      instructions: new FormControl(null, Validators.required)
+      recipeTitle: new FormControl(null, Validators.required),
+      recipeDescription: new FormControl(null, Validators.required),
+      recipeTime: new FormControl(null, Validators.required),
+      recipeDifficulty: new FormControl(null, Validators.required),
+      recipeDishType: new FormControl(null, Validators.required),
+      recipeAdditionalFeatures: new FormControl(null),
+      recipeTotalGuests: new FormControl(null, Validators.required),
+      authorName: new FormControl(null, Validators.required),
+      productName: new FormControl(null, Validators.required),
+      ingredientName: new FormControl(null, Validators.required),
+      productDescription: new FormControl(null, Validators.required),
+      ingredientUnity: new FormControl(null, Validators.required),
+      ingredientWeight: new FormControl(null, Validators.required),
+      authorWhatsapp: new FormControl(null, Validators.required),
     });
   }
 
@@ -42,9 +53,14 @@ export class RecipeEditorPage implements OnInit {
       (response) => {
         const recipe = response.meals[0];
         this.recipeForm.setValue({
-          title: recipe.strMeal,
-          ingredients: recipe.strIngredient1,
-          instructions: recipe.strInstructions
+          recipeTitle: recipe.strMeal,
+          recipeDescription: recipe.strDescription,
+          recipeTime: recipe.strTime,
+          recipeDifficulty: recipe.strDifficulty,
+          recipeDishType: recipe.strDishType,
+          recipeAdditionalFeatures: recipe.strAdditionalFeatures,
+          recipeTotalGuests: recipe.strTotalGuests
+          // fill other fields as needed
         });
       },
       (error) => {
@@ -59,27 +75,69 @@ export class RecipeEditorPage implements OnInit {
       return;
     }
 
-    if (this.editMode) {
-      this.recipeService.updateRecipe(this.recipeId as string, this.recipeForm.value).subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigateByUrl('/recipes-list');
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    } else {
-      this.recipeService.createRecipe(this.recipeForm.value).subscribe(
-        (response) => {
-          console.log(response);
-          this.router.navigateByUrl('/recipes-list');
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    }
+    const formValue = this.recipeForm.value;
+
+    // create author
+    this.recipeService.createAuthor({ name: formValue.authorName, whatsapp: formValue.authorWhatsapp }).subscribe(authorResponse => {
+      const authorId = authorResponse.id; // assuming the response has the author ID
+
+      // create product
+      this.recipeService.createProduct({ name: formValue.productName, description: formValue.productDescription }).subscribe(productResponse => {
+        const productId = productResponse.id; // assuming the response has the product ID
+
+        // create ingredient with the product id
+        this.recipeService.createIngredient({
+          produto_id: productId,
+          unity: formValue.ingredientUnity,
+          weight: formValue.ingredientWeight
+        }).subscribe(ingredientResponse => {
+          const ingredientId = ingredientResponse.id; // assuming the response has the ingredient ID
+
+          // create or update recipe
+          if (this.editMode) {
+            this.recipeService.updateRecipe(this.recipeId as string, {
+              name: formValue.recipeTitle,
+              description: formValue.recipeDescription,
+              time: formValue.recipeTime,
+              difficulty: formValue.recipeDifficulty,
+              dish_type: formValue.recipeDishType,
+              additional_features: formValue.recipeAdditionalFeatures,
+              total_guests: formValue.recipeTotalGuests,
+              author_id: authorId,
+              ingredients: [ingredientId]
+            }).subscribe(
+              (response) => {
+                console.log(response);
+                this.router.navigateByUrl('/recipes-list');
+              },
+              (error) => {
+                console.error(error);
+              }
+            );
+          } else {
+            this.recipeService.createRecipe({
+              name: formValue.recipeTitle,
+              description: formValue.recipeDescription,
+              time: formValue.recipeTime,
+              difficulty: formValue.recipeDifficulty,
+              dish_type: formValue.recipeDishType,
+              additional_features: formValue.recipeAdditionalFeatures,
+              total_guests: formValue.recipeTotalGuests,
+              author_id: authorId,
+              ingredients: [ingredientId]
+            }).subscribe(
+              (response) => {
+                console.log(response);
+                this.router.navigateByUrl('/recipes-list');
+              },
+              (error) => {
+                console.error(error);
+              }
+            );
+          }
+        });
+      });
+    });
   }
 
   goBack() {

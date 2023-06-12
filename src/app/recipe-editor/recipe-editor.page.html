@@ -1,26 +1,77 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/recipes-list"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Criar Receita</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<div *ngIf="recipeForm" class="container">
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <ion-item>
-      <ion-label>Titulo</ion-label>
-      <ion-input formControlName="title"></ion-input>
+      <ion-label>Recipe Title</ion-label>
+      <ion-input formControlName="recipeTitle"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label>Ingredientes</ion-label>
-      <ion-input formControlName="ingredients"></ion-input>
+      <ion-label>Recipe Description</ion-label>
+      <ion-input formControlName="recipeDescription"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label>Instruções</ion-label>
-      <ion-input formControlName="instructions"></ion-input>
+      <ion-label>Recipe Time</ion-label>
+      <ion-input formControlName="recipeTime"></ion-input>
     </ion-item>
-    <ion-button expand="full" type="submit">Criar</ion-button>
+
+    <ion-item>
+      <ion-label>Recipe Difficulty</ion-label>
+      <ion-input formControlName="recipeDifficulty"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Dish Type</ion-label>
+      <ion-input formControlName="recipeDishType"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Additional Features</ion-label>
+      <ion-input formControlName="recipeAdditionalFeatures"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Total Guests</ion-label>
+      <ion-input formControlName="recipeTotalGuests"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Author Name</ion-label>
+      <ion-input formControlName="authorName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Author Whatsapp</ion-label>
+      <ion-input formControlName="authorWhatsapp"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Product Name</ion-label>
+      <ion-input formControlName="productName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Product Description</ion-label>
+      <ion-input formControlName="productDescription"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ingredient Name</ion-label>
+      <ion-input formControlName="ingredientName"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ingredient Unity</ion-label>
+      <ion-input formControlName="ingredientUnity"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Ingredient Weight</ion-label>
+      <ion-input formControlName="ingredientWeight"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="recipeForm.invalid">Submit</ion-button>
   </form>
-</ion-content>
+
+  <ion-button expand="full" color="light" (click)="goBack()">Go Back</ion-button>
+</div>
