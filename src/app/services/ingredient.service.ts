@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ProductService } from './product.service';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class IngredientService {
     const produto_id = this.productService.getCreatedProductId();
     console.log('produto_id:', produto_id);
 
-    ingredientData = {
+    const adjustedIngredientData = {
       ...ingredientData,
       ingredient: {
         ...ingredientData.ingredient,
@@ -26,13 +26,20 @@ export class IngredientService {
       }
     };
 
-    return this.http.post(`${this.apiUrl}/ingredient`, ingredientData).pipe(
-      catchError(this.handleError)
+    return this.http.post(`${this.apiUrl}/ingredient`, adjustedIngredientData).pipe(
+      catchError(this.handleError),
+      tap((response: any) => {
+        console.log('Resposta do servidor:', response);
+        console.log('Todos os atributos no objeto de resposta:');
+        for (let key in response) {
+          console.log(`Atributo: ${key}, Valor: ${response[key]}`);
+        }
+      })
     );
   }
 
   private handleError(error: any) {
-    console.error('An error occurred:', error);
+    console.error('Ocorreu um erro:', error);
     return throwError(error);
   }
 }

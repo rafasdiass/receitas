@@ -6,7 +6,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'recipes-list',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {

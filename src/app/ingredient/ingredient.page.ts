@@ -24,7 +24,7 @@ export class IngredientPage implements OnInit {
 
   initForm() {
     this.ingredientForm = new FormGroup({
-      produto_id: new FormControl(null, Validators.required), // alterado para produto_id
+      produto_id: new FormControl(null, Validators.required),
       unity: new FormControl(null, Validators.required),
       weight: new FormControl(null, Validators.required),
     });
@@ -53,11 +53,11 @@ export class IngredientPage implements OnInit {
     const uniqueIngredientName = 'Ingrediente' + new Date().getTime();
 
     this.ingredientService.createIngredient({
-      name: uniqueIngredientName,
+      produto_id: formValue.produto_id,
+      unity: formValue.unity,
+      weight: formValue.weight,
       ingredient: {
-        produto_id: formValue.produto_id, // alterado para formValue.produto_id
-        unity: formValue.unity,
-        weight: formValue.weight,
+        name: uniqueIngredientName
       }
     }).subscribe(
       (response: any) => {
