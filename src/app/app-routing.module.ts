@@ -17,10 +17,7 @@ const routes: Routes = [
     path: 'recipe-details/:id',
     loadChildren: () => import('./recipe-details/recipe-details.module').then(m => m.RecipeDetailsPageModule)
   },
-  {
-    path: 'recipe-editor/:id?',
-    loadChildren: () => import('./recipe-editor/recipe-editor.module').then(m => m.RecipeEditorPageModule)
-},
+
   {
     path: 'user-profile',
     loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfilePageModule)
@@ -40,6 +37,10 @@ const routes: Routes = [
   {
     path: 'product',
     loadChildren: () => import('./product/product.module').then( m => m.ProductPageModule)
+  },
+  {
+    path: 'recipe-creator',
+    loadChildren: () => import('./recipe-creator/recipe-creator.module').then( m => m.RecipeCreatorPageModule)
   }
 ];
 

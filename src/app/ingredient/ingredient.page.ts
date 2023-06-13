@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { IngredientService } from '../services/ingredient.service';
@@ -14,7 +15,8 @@ export class IngredientPage implements OnInit {
 
   constructor(
     private ingredientService: IngredientService,
-    private productService: ProductService
+    private productService: ProductService,
+    private alertController: AlertController  // injetar AlertController
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class IngredientPage implements OnInit {
     );
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.ingredientForm.invalid) {
       console.log('Formulário inválido');
       return;
@@ -62,10 +64,22 @@ export class IngredientPage implements OnInit {
     }).subscribe(
       (response: any) => {
         console.log(response);
+        this.presentAlert('Ingrediente criado com sucesso!');  // apresentar alerta
       },
       (error: any) => {
         console.error(error);
       }
     );
+  }
+
+  // função para apresentar alerta
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Aviso',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }

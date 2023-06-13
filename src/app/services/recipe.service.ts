@@ -1,7 +1,9 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
+import { UserProfileService } from './userprofile.service'; // Import UserProfileService
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +11,13 @@ import { catchError, tap } from 'rxjs/operators';
 export class RecipeService {
   private apiUrl = 'http://localhost:3333';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private UserProfileService: UserProfileService  // Inject UserProfileService
+  ) { }
 
   getRecipes(): Observable<any> {
     return this.http.get(`${this.apiUrl}/recipe`).pipe(
-      tap((response: any) => console.log(response)),
       catchError(this.handleError)
     );
   }
@@ -25,31 +29,17 @@ export class RecipeService {
   }
 
   createRecipe(recipeData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/recipe`, recipeData).pipe(
+    return this.UserProfileService.getAuthorId().pipe(
+      switchMap((author_id) => {
+        recipeData.author_id = author_id;  // Set author_id from UserProfileService
+        return this.http.post(`${this.apiUrl}/recipe`, recipeData);
+      }),
       catchError(this.handleError)
     );
   }
 
   updateRecipe(id: string, recipeData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/recipe/${id}`, recipeData).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  createAuthor(authorData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/author`, authorData).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  createProduct(productData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/produto`, productData).pipe(
-      catchError(this.handleError)
-    );
-  }
-
-  createIngredient(ingredientData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/ingredient`, ingredientData).pipe(
       catchError(this.handleError)
     );
   }
