@@ -8,12 +8,12 @@
   <div *ngIf="productForm" class="container">
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <ion-item>
-        <ion-label>NOME: </ion-label>
+        <ion-label>NOME:</ion-label>
         <ion-input formControlName="productName"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label>DESCRIÇÃO: </ion-label>
+        <ion-label>DESCRIÇÃO:</ion-label>
         <ion-input formControlName="productDescription"></ion-input>
       </ion-item>
 

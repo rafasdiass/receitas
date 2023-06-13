@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,22 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   createProduct(productData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/produto`, productData).pipe(
-      catchError(this.handleError)
+    const adjustedProductData = {
+      ...productData,
+      produto_id: null // Definir inicialmente como nulo
+    };
+
+    return this.http.post(`${this.apiUrl}/produto`, adjustedProductData).pipe(
+      catchError(this.handleError),
+      tap((response: any) => {
+        console.log('Resposta do servidor:', response);
+        const produto_id = response.id.replace("'", "");
+
+        this.setCreatedProductId(produto_id);
+        console.log('ID do produto setado:', produto_id);
+
+
+      })
     );
   }
 
@@ -33,7 +47,7 @@ export class ProductService {
   }
 
   private handleError(error: any) {
-    console.error('An error occurred:', error);
+    console.error('Ocorreu um erro:', error);
     return throwError(error);
   }
 }

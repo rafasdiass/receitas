@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -9,19 +9,22 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductPage implements OnInit {
 
-  productForm: FormGroup = new FormGroup({});
-  createdProdutoId: string | null = null; // Variável para armazenar o ID do produto criado
+  productForm!: FormGroup;
+  createdProductId: string | null = null;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) { }
 
   ngOnInit() {
     this.initForm();
   }
 
   initForm() {
-    this.productForm = new FormGroup({
-      productName: new FormControl(null, Validators.required),
-      productDescription: new FormControl(null, Validators.required),
+    this.productForm = this.formBuilder.group({
+      productName: [null, Validators.required],
+      productDescription: [null, Validators.required]
     });
   }
 
@@ -39,11 +42,12 @@ export class ProductPage implements OnInit {
       description: formValue.productDescription
     }).subscribe(
       (response: any) => {
-        this.createdProdutoId = response.produto_id; // Atribui o ID do produto criado à variável
-        console.log(response);
+        this.createdProductId = response.id;
+        this.productService.setCreatedProductId(response.id);
+        console.log('Produto h. ID:', response.id);
       },
       (error: any) => {
-        console.error(error);
+        console.error('Erro ao criar o produto:', error);
       }
     );
   }
