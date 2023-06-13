@@ -10,7 +10,7 @@ import { ProductService } from '../services/product.service';
 export class ProductPage implements OnInit {
 
   productForm: FormGroup = new FormGroup({});
-  createdProductId: string | null = null; // Variável para armazenar o ID do produto criado
+  createdProdutoId: string | null = null; // Variável para armazenar o ID do produto criado
 
   constructor(private productService: ProductService) { }
 
@@ -39,7 +39,7 @@ export class ProductPage implements OnInit {
       description: formValue.productDescription
     }).subscribe(
       (response: any) => {
-        this.createdProductId = response.id; // Atribui o ID do produto criado à variável
+        this.createdProdutoId = response.produto_id; // Atribui o ID do produto criado à variável
         console.log(response);
       },
       (error: any) => {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -18,11 +17,20 @@ export class NavbarComponent implements OnInit {
       icon: 'list'
     },
     {
-      title: 'Usuario',
+      title: 'Usuário',
       url: '/user-profile',
       icon: 'person'
     },
-    // ...
+    {
+      title: 'Ingredientes',
+      url: '/product',
+      icon: 'leaf'
+    },
+    {
+      title: 'Produtos',
+      url: '/ingredient',
+      icon: 'cart'
+    },
   ];
 
   constructor() {}

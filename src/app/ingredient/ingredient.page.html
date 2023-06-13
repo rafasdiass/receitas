@@ -9,8 +9,8 @@
     <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
 
       <ion-item>
-        <ion-label>Ingrediente 1:</ion-label>
-        <ion-select formControlName="productId">
+        <ion-label>Ingrediente:</ion-label>
+        <ion-select formControlName="produto_id"> <!-- alterado para produto_id -->
           <ion-select-option *ngFor="let product of products" [value]="product.id">
             {{ product.name }}
           </ion-select-option>
@@ -20,12 +20,12 @@
       <ion-item>
         <ion-label>UNIDADE:</ion-label>
         <ion-input type="number" formControlName="unity"></ion-input> <!-- alterado para unity -->
-    </ion-item>
+      </ion-item>
 
-    <ion-item>
+      <ion-item>
         <ion-label>PESO:</ion-label>
         <ion-input type="number" formControlName="weight"></ion-input> <!-- alterado para weight -->
-    </ion-item>
+      </ion-item>
 
       <ion-button expand="full" type="submit" [disabled]="ingredientForm.invalid">Criar Produto</ion-button>
 

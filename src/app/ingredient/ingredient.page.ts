@@ -9,7 +9,6 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./ingredient.page.scss'],
 })
 export class IngredientPage implements OnInit {
-
   ingredientForm: FormGroup = new FormGroup({});
   products: any[] = [];
 
@@ -22,9 +21,10 @@ export class IngredientPage implements OnInit {
     this.initForm();
     this.loadProducts();
   }
+
   initForm() {
     this.ingredientForm = new FormGroup({
-      productId: new FormControl(null, Validators.required),
+      produto_id: new FormControl(null, Validators.required), // alterado para produto_id
       unity: new FormControl(null, Validators.required),
       weight: new FormControl(null, Validators.required),
     });
@@ -39,7 +39,9 @@ export class IngredientPage implements OnInit {
         console.error(error);
       }
     );
-  }onSubmit() {
+  }
+
+  onSubmit() {
     if (this.ingredientForm.invalid) {
       console.log('Formulário inválido');
       return;
@@ -52,10 +54,10 @@ export class IngredientPage implements OnInit {
 
     this.ingredientService.createIngredient({
       name: uniqueIngredientName,
-      ingredient1: {
-        productId: formValue.productId,
-        unity: formValue.unity, // alterado para formValue.unity
-        weight: formValue.weight, // alterado para formValue.weight
+      ingredient: {
+        produto_id: formValue.produto_id, // alterado para formValue.produto_id
+        unity: formValue.unity,
+        weight: formValue.weight,
       }
     }).subscribe(
       (response: any) => {

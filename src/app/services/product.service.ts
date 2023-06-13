@@ -28,8 +28,8 @@ export class ProductService {
     return this.createdProductId;
   }
 
-  setCreatedProductId(productId: string) {
-    this.createdProductId = productId;
+  setCreatedProductId(produto_id: string) {
+    this.createdProductId = produto_id;
   }
 
   private handleError(error: any) {
