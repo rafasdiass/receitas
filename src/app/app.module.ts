@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarModule } from './navbar/navbar.module'
+import { FooterPageModule } from './footer/footer.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,8 @@ import { NavbarModule } from './navbar/navbar.module'
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    NavbarModule
+    NavbarModule,
+    FooterPageModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

@@ -7,7 +7,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { IngredientService } from '../services/ingredient.service';
-import { ProductService } from '../services/product.service';
+import { Ingredient } from '../ingredient/ingredient.model';
 
 @Component({
   selector: 'app-ingredient',
@@ -16,7 +16,7 @@ import { ProductService } from '../services/product.service';
 })
 export class IngredientPage implements OnInit {
   ingredientForm: FormGroup = new FormGroup({});
-  ingredients: any[] = [];
+  ingredients: Ingredient[] = [];
 
   constructor(
     private ingredientService: IngredientService,
@@ -38,7 +38,7 @@ export class IngredientPage implements OnInit {
 
   loadIngredients() {
     this.ingredientService.getIngredients().subscribe(
-      (response: any) => {
+      (response: Ingredient[]) => {
         this.ingredients = response;
       },
       (error: any) => {
@@ -62,8 +62,11 @@ export class IngredientPage implements OnInit {
         description: formValue.productDescription,
       })
       .subscribe(
-        (response: any) => {
+        (response: Ingredient) => {
           console.log(response);
+          this.presentAlert('Ingrediente criado com sucesso!'); // apresentar alerta
+          this.ingredientForm.reset(); // limpar o formulário
+          this.loadIngredients(); // recarregar a lista de ingredientes
         },
         (error: any) => {
           console.error('Erro ao criar o ingrediente:', error);
