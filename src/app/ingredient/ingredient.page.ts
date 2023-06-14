@@ -1,6 +1,11 @@
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { IngredientService } from '../services/ingredient.service';
 import { ProductService } from '../services/product.service';
 
@@ -11,31 +16,30 @@ import { ProductService } from '../services/product.service';
 })
 export class IngredientPage implements OnInit {
   ingredientForm: FormGroup = new FormGroup({});
-  products: any[] = [];
+  ingredients: any[] = [];
 
   constructor(
     private ingredientService: IngredientService,
-    private productService: ProductService,
-    private alertController: AlertController  // injetar AlertController
-  ) { }
+    private formBuilder: FormBuilder,
+    private alertController: AlertController // injetar AlertController
+  ) {}
 
   ngOnInit() {
     this.initForm();
-    this.loadProducts();
+    this.loadIngredients();
   }
 
   initForm() {
-    this.ingredientForm = new FormGroup({
-      produto_id: new FormControl(null, Validators.required),
-      unity: new FormControl(null, Validators.required),
-      weight: new FormControl(null, Validators.required),
+    this.ingredientForm = this.formBuilder.group({
+      productName: [null, Validators.required],
+      productDescription: [null, Validators.required],
     });
   }
 
-  loadProducts() {
-    this.productService.getProducts().subscribe(
+  loadIngredients() {
+    this.ingredientService.getIngredients().subscribe(
       (response: any) => {
-        this.products = response;
+        this.ingredients = response;
       },
       (error: any) => {
         console.error(error);
@@ -43,33 +47,28 @@ export class IngredientPage implements OnInit {
     );
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.ingredientForm.invalid) {
-      console.log('Formulário inválido');
+      console.log('Invalid form');
       return;
     }
 
     const formValue = this.ingredientForm.value;
 
-    // Gerar um nome de ingrediente único com base na hora atual
-    const uniqueIngredientName = 'Ingrediente' + new Date().getTime();
-
-    this.ingredientService.createIngredient({
-      produto_id: formValue.produto_id,
-      unity: formValue.unity,
-      weight: formValue.weight,
-      ingredient: {
-        name: uniqueIngredientName
-      }
-    }).subscribe(
-      (response: any) => {
-        console.log(response);
-        this.presentAlert('Ingrediente criado com sucesso!');  // apresentar alerta
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+    // Create product
+    this.ingredientService
+      .createIngredient({
+        name: formValue.productName,
+        description: formValue.productDescription,
+      })
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+        },
+        (error: any) => {
+          console.error('Erro ao criar o ingrediente:', error);
+        }
+      );
   }
 
   // função para apresentar alerta
@@ -77,7 +76,7 @@ export class IngredientPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Aviso',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
     });
 
     await alert.present();

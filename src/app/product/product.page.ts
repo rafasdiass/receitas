@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
+import { IngredientService } from '../services/ingredient.service';
+import { AlertController } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
+import { Ingredient } from '../ingredient/ingredient.model';
 
 @Component({
   selector: 'app-product',
@@ -8,47 +16,74 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-
   productForm!: FormGroup;
+  ingredients: Ingredient[] = [];
   createdProductId: string | null = null;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private productService: ProductService
-  ) { }
+    private productService: ProductService,
+    private ingredientService: IngredientService,
+    private alertController: AlertController
+  ) {}
 
   ngOnInit() {
     this.initForm();
+    this.loadIngredients();
   }
 
   initForm() {
-    this.productForm = this.formBuilder.group({
-      productName: [null, Validators.required],
-      productDescription: [null, Validators.required]
+    this.productForm = new FormGroup({
+      produto_id: new FormControl(null, Validators.required),
+      name: new FormControl(null, Validators.required),
+      unity: new FormControl(null, Validators.required),
+      weight: new FormControl(null, Validators.required),
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.productForm.invalid) {
-      console.log('Invalid form');
+      console.log('Formulário inválido');
       return;
     }
 
     const formValue = this.productForm.value;
 
-    // Create product
-    this.productService.createProduct({
-      name: formValue.productName,
-      description: formValue.productDescription
-    }).subscribe(
-      (response: any) => {
-        this.createdProductId = response.id;
-        this.productService.setCreatedProductId(response.id);
-        console.log('Produto h. ID:', response.id);
+    this.productService
+      .createProduct({
+        name: formValue.name,
+        ingredientId: formValue.produto_id,
+        unity: formValue.unity,
+        weight: formValue.weight,
+      })
+      .subscribe(
+        (response: any) => {
+          console.log(response);
+          this.presentAlert('Produto criado com sucesso!'); // apresentar alerta
+        },
+        (error: any) => {
+          console.error(error);
+        }
+      );
+  }
+
+  loadIngredients() {
+    this.ingredientService.getIngredients().subscribe(
+      (response: Ingredient[]) => {
+        this.ingredients = response;
       },
       (error: any) => {
-        console.error('Erro ao criar o produto:', error);
+        console.error(error);
       }
     );
+  }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Aviso',
+      message: message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 }
