@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
-  FormBuilder,
   Validators,
   FormControl,
 } from '@angular/forms';
@@ -9,6 +8,7 @@ import { IngredientService } from '../services/ingredient.service';
 import { AlertController } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
 import { Ingredient } from '../ingredient/ingredient.model';
+import { Product } from '../product/product.model';
 
 @Component({
   selector: 'app-product',
@@ -18,7 +18,7 @@ import { Ingredient } from '../ingredient/ingredient.model';
 export class ProductPage implements OnInit {
   productForm!: FormGroup;
   ingredients: Ingredient[] = [];
-  products: any[] = [];
+  products: Product[] = [];
   createdProductId: string | null = null;
 
   constructor(
@@ -58,9 +58,10 @@ export class ProductPage implements OnInit {
         weight: formValue.weight,
       })
       .subscribe(
-        (response: any) => {
+        (response: Product) => {
           console.log(response);
-          this.presentAlert('Produto criado com sucesso!'); // apresentar alerta
+          this.presentAlert('Produto criado com sucesso!');
+          this.loadProducts();
         },
         (error: any) => {
           console.error(error);
@@ -80,7 +81,7 @@ export class ProductPage implements OnInit {
   }
 
   loadProducts() {
-    this.productService.getProducts().subscribe((response) => {
+    this.productService.getProducts().subscribe((response: Product[]) => {
       this.products = response;
     });
   }

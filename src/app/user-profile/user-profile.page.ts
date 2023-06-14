@@ -29,7 +29,7 @@ export class UserProfilePage implements OnInit {
     }).subscribe(
       (response: any) => {
         console.log(response);
-        this.userProfileService.setAuthorId(response.id); // A suposição aqui é que a resposta tem uma propriedade 'id' que é o author_id.
+        this.userProfileService.setAuthorId(response.id);
         alert('Profile saved successfully');
       },
       (error) => {

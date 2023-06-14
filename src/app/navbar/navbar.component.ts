@@ -11,15 +11,16 @@ export class NavbarComponent implements OnInit {
       url: '/home',
       icon: 'home',
     },
-    {
-      title: 'Receitas',
-      url: '/recipes-list',
-      icon: 'list',
-    },
+
     {
       title: 'Usuário',
       url: '/user-profile',
       icon: 'person',
+    },
+        {
+      title: 'Ingredientes',
+      url: '/ingredient',
+      icon: 'cart',
     },
     {
       title: 'Produtos',
@@ -27,10 +28,10 @@ export class NavbarComponent implements OnInit {
       icon: 'leaf',
     },
     {
-      title: 'Ingredientes',
-      url: '/ingredient',
-      icon: 'cart',
-    },
+      title: 'Receitas',
+      url: '/recipes-list',
+      icon: 'list',
+    }
   ];
 
   constructor() {}

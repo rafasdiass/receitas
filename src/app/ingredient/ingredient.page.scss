@@ -1,0 +1,58 @@
+ion-select {
+  --padding-start: 10px; // Adiciona um preenchimento à esquerda
+  --padding-end: 10px; // Adiciona um preenchimento à direita
+  --background: white; // Define a cor de fundo
+  --color: #000; // Define a cor do texto
+  --placeholder-color: #999; // Define a cor do placeholder
+  --border-radius: 5px; // Define o raio da borda
+  --border-style: solid; // Define o estilo da borda
+  --border-width: 1px; // Define a largura da borda
+  --border-color: #ddd; // Define a cor da borda
+}
+
+ion-content {
+  background: #f4f5f8;
+}
+
+.container {
+  padding: 20px;
+}
+
+ion-item {
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+
+  ion-label {
+    font-weight: bold;
+  }
+}
+
+ion-button {
+  margin-top: 20px;
+}
+ion-content {
+  background: #f4f5f8;
+}
+
+.container {
+  padding: 20px;
+}
+
+ion-list {
+  margin-top: 20px;
+}
+
+ion-item {
+  background: white;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
