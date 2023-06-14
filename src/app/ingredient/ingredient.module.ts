@@ -14,8 +14,8 @@ import { IngredientPage } from './ingredient.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    IngredientPageRoutingModule
+    IngredientPageRoutingModule,
   ],
-  declarations: [IngredientPage]
+  declarations: [IngredientPage],
 })
 export class IngredientPageModule {}

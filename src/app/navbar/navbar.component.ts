@@ -9,27 +9,27 @@ export class NavbarComponent implements OnInit {
     {
       title: 'Home',
       url: '/home',
-      icon: 'home'
+      icon: 'home',
     },
     {
       title: 'Receitas',
       url: '/recipes-list',
-      icon: 'list'
+      icon: 'list',
     },
     {
       title: 'Usuário',
       url: '/user-profile',
-      icon: 'person'
-    },
-    {
-      title: 'Ingredientes',
-      url: '/product',
-      icon: 'leaf'
+      icon: 'person',
     },
     {
       title: 'Produtos',
+      url: '/product',
+      icon: 'leaf',
+    },
+    {
+      title: 'Ingredientes',
       url: '/ingredient',
-      icon: 'cart'
+      icon: 'cart',
     },
   ];
 

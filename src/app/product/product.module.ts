@@ -14,8 +14,8 @@ import { ProductPage } from './product.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    ProductPageRoutingModule
+    ProductPageRoutingModule,
   ],
-  declarations: [ProductPage]
+  declarations: [ProductPage],
 })
 export class ProductPageModule {}
