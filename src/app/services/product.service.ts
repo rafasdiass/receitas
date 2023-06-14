@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   createProduct(productData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/produto`, productData).pipe(
+    return this.http.post(`${this.apiUrl}/product`, productData).pipe(
       catchError(this.handleError),
       tap((response: any) => {
         console.log('Resposta do servidor:', response);
@@ -21,19 +21,14 @@ export class ProductService {
     );
   }
 
-  // getProducts(): Observable<any> {
-  //   return this.http
-  //     .get(`${this.apiUrl}/produto`)
-  //     .pipe(catchError(this.handleError));
-  // }
-
-  // getCreatedProductId(): string | null {
-  //   return this.createdProductId;
-  // }
-
-  // setCreatedProductId(produto_id: string) {
-  //   this.createdProductId = produto_id;
-  // }
+  getProducts(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product`).pipe(
+      catchError(this.handleError),
+      tap((response: any) => {
+        console.log('Resposta do servidor:', response);
+      })
+    );
+  }
 
   private handleError(error: any) {
     console.error('Ocorreu um erro:', error);

@@ -18,6 +18,7 @@ import { Ingredient } from '../ingredient/ingredient.model';
 export class ProductPage implements OnInit {
   productForm!: FormGroup;
   ingredients: Ingredient[] = [];
+  products: any[] = [];
   createdProductId: string | null = null;
 
   constructor(
@@ -29,6 +30,7 @@ export class ProductPage implements OnInit {
   ngOnInit() {
     this.initForm();
     this.loadIngredients();
+    this.loadProducts();
   }
 
   initForm() {
@@ -75,6 +77,12 @@ export class ProductPage implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  loadProducts() {
+    this.productService.getProducts().subscribe((response) => {
+      this.products = response;
+    });
   }
 
   async presentAlert(message: string) {
